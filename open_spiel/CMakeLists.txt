@@ -9,8 +9,22 @@ agrees  with the major version and is at least as high for minor version and \
 patch number is accepted. If the variable is not set, we use the FindPython \
 module which favours Python 3 over Python 2 if both are available.")
 # set (CMAKE_CXX_COMPILER "/usr/bin/g++")
-set (CMAKE_CXX_STANDARD 11)
-set (CMAKE_CXX_FLAGS "-Werror -undefined dynamic_lookup")
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL AppleClang)
+  set (CMAKE_CXX_STANDARD 14)
+  set (CMAKE_CXX_FLAGS "\
+        -Werror \
+        -Wno-inconsistent-missing-override \
+        -Wno-shadow \
+        -Wno-unused-template \
+        -Wno-unused-value \
+        -Wno-unused-command-line-argument \
+        -Wl,-undefined,dynamic_lookup \
+        -DTARGET_OS_IPHONE_SIMULATOR=0 \
+        ")
+else()
+  set (CMAKE_CXX_STANDARD 11)
+  set (CMAKE_CXX_FLAGS "-Werror -undefined dynamic_lookup")
+endif()
 
 # Position-independent code is needed for Python extension modules.
 set (CMAKE_POSITION_INDEPENDENT_CODE ON)

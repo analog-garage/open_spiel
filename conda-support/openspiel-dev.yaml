@@ -1,0 +1,20 @@
+name: openspiel-dev
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7.*
+  - pip
+  - pybind11
+  - cmake
+  - absl-py>=0.7.1
+  - tensorflow =1.14.*
+  - ipython >=5.8
+  - tensorflow-probability =0.7.*
+  - cvxopt >=1.2.3
+  - networkx >=2.2
+  - mock >=3.0.5
+  - matplotlib >=3.1.1
+  - scipy >= 1.1
+  - pip:
+    - dm-sonnet>=1.32
+

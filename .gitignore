@@ -1,0 +1,15 @@
+# python cache files
+__pycache__
+*.pyc
+
+# "submodules"
+/pybind11
+/open_spiel/abseil-cpp
+/open_spiel/games/bridge/double_dummy_solver
+
+# IDE's
+/.vscode
+/.idea
+
+# build directories
+/build_python_*
