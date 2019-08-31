@@ -2,6 +2,8 @@
 
 This is an alternate build/install method for Mac OSX using conda. 
 
+*This has only been tested on Mac OSX 10.14.5 (Mojave) with Xcode 10.1*
+
 ## Summary
 
 1. Install conda. If you do not already have anaconda installed, we recommend 
@@ -44,3 +46,24 @@ This is an alternate build/install method for Mac OSX using conda.
     $ conda activate openspiel-dev
     (openspiel-dev) $ python -c 'import pyspiel'
     ```
+
+8. Optional extra test
+
+   ```bash
+   (openspiel-dev) $ pytest --pyargs open_spiel.python.tests
+   ```
+
+## Building conda package
+
+You can build a conda package named `open_spiel` using the supplied recipe:
+
+```bash
+$ cd conda-support
+$ conda build recipe
+```
+
+Note that because open_spiel has no version, a version is hard-coded in the recipe.
+
+If you have made local modifications (e.g. added games), you should probably rename
+the package in the recipe to avoid confusion.
+

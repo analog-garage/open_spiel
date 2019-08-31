@@ -1,0 +1,51 @@
+package:
+  name: open_spiel
+  version: 0.0.1
+
+source:
+  - path: ../../open_spiel/python
+    folder: open_spiel/python
+  - path: ../../open_spiel/contrib/python
+    folder: open_spiel/contrib/python
+  - path: ../../build_python_3/python
+
+build:
+  script: python ${RECIPE_DIR}/build.py
+
+  include_recipe: False
+
+requirements:
+  build:
+    - python=3.7*
+
+  run:
+    - python=3.7.*
+    - pip
+    - pybind11
+    - cmake
+    - absl-py>=0.7.1
+    - tensorflow =1.14.*
+    - ipython >=5.8
+    - tensorflow-probability =0.7.*
+    - cvxopt >=1.2.3
+    - networkx >=2.2
+    - mock >=3.0.5
+    - matplotlib >=3.1.1
+    - scipy >=1.1
+    # dm-sonnet dependencies not already explicitly included
+    - six
+    - semantic_version
+    - contextlib2
+    - wrapt
+    # dm-sonnet installed by pip in post-link script
+
+test:
+  requires:
+    - pytest
+
+  imports:
+    - pyspiel
+    - open_spiel.python.algorithms
+
+  commands:
+    - pytest --pyargs open_spiel.python.tests
