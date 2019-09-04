@@ -6,12 +6,12 @@ This is an alternate build/install method for Mac OSX using conda.
 
 ## Summary
 
-1. Install conda. If you do not already have anaconda installed, we recommend 
-   the minimal Miniconda distribution.
+1. Install conda 4.7.11 or later. If you do not already have anaconda installed, we recommend 
+   the minimal Miniconda distribution. If you already have conda, you can update it using `conda -n base update conda`.
 
 2. Install Xcode either from AppStore or from developer.apple.com.
 
-3.  Run `./conda-install.sh` once to install system packages and download some
+3.  Run `./install-submodules.sh` once to install system packages and download some
     dependencies. (*This is just the submodule section of `install.sh`)
 
 4. Create your conda environment:
@@ -23,6 +23,13 @@ This is an alternate build/install method for Mac OSX using conda.
    This will create a conda environment named `openspiel-dev` that contains
    the necessary dependencies.
 
+   If you want to give the environment a different name such as `osdev`, add
+   the `-n` argument:
+
+   ```bash
+   $ conda env create -n osdev -f conda-support/openspiel-dev.yaml
+   ```
+
 5. Activate the environment:
 
    ```bash
@@ -32,19 +39,18 @@ This is an alternate build/install method for Mac OSX using conda.
 
    You can deactivate the environment using `conda deactivate`
 
-6.  Build and run tests to check everything works:
-
-    ```bash
-    (openspiel-dev) $ ./open_spiel/scripts/build_and_run_tests.sh
-    ```
-
-7.  Configure conda environment to automatically set PYTHONPATH
+7.  Configure conda environment to automatically modify `PYTHONPATH` when activated and deactivated:
 
     ```bash
     (openspiel-dev) $ python conda-support/setup_conda_activate.py
     (openspiel-dev) $ conda deactivate
     $ conda activate openspiel-dev
-    (openspiel-dev) $ python -c 'import pyspiel'
+    ```
+
+6.  Build and run tests to check everything works:
+
+    ```bash
+    (openspiel-dev) $ ./open_spiel/scripts/build_and_run_tests.sh
     ```
 
 8. Optional extra test

@@ -7,8 +7,12 @@ import os
 import sys
 
 def main():
-    if os.path.basename(sys.prefix) != 'openspiel-dev':
-        raise AssertionError('Not run from openspiel-dev conda environment')
+    conda_env = os.getenv('CONDA_DEFAULT_ENV')
+    if conda_env is None:
+        raise AssertionError('Not run from a conda environment')
+
+    if conda_env == 'base':
+        raise AssertionError('Cannot be run in base conda environment')
 
     this_dir = os.path.abspath(os.path.dirname(__file__))
     source_dir = os.path.dirname(this_dir)
@@ -28,14 +32,17 @@ def main():
     with open(activate_script, 'w') as f:
         f.write("""
 #!/bin/sh
-export NOOPENSPIEL_PYTHONPATH=$PYTHONPATH
+export PYTHONPATH_SANS_OPENSPIEL=$PYTHONPATH
 export PYTHONPATH=$PYTHONPATH:%s:%s
-""" % (build_dir, source_dir))
+export OPENSPIEL_CONDA_ENV=%s
+""" % (build_dir, source_dir, conda_env))
 
     with open(deactivate_script, 'w') as f:
         f.write("""
 #!/bin/sh
-export PYTHONPATH=$NOOPENSPIEL_PYTHONPATH
+export PYTHONPATH=$PYTHONPATH_SANS_OPENSPIEL
+unset PYTHONPATH_SANS_OPENSPIEL
+unset OPENSPIEL_CONDA_ENV
 """)
 
 if __name__ == '__main__':

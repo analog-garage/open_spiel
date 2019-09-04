@@ -32,7 +32,7 @@ CXX=g++
 NPROC=nproc
 if [[ "$OSTYPE" == "darwin"* ]]; then  # Mac OSX
   NPROC="sysctl -n hw.physicalcpu"
-  if [[ "$CONDA_DEFAULT_ENV" == "openspiel"* ]]; then
+  if [[ "$CONDA_DEFAULT_ENV" == "$OPENSPIEL_CONDA_ENV" ]]; then
     CXX=clang++
   else
     CXX=/usr/local/bin/g++-7
