@@ -15,6 +15,7 @@ dependencies:
   - mock >=3.0.5
   - matplotlib >=3.1.1
   - scipy >= 1.1
+  - pytest
   # dm-sonnet dependencies not already explicitly included
   - six
   - semantic_version
